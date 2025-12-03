@@ -1,30 +1,22 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-
+import { useEffect, useState } from "react";
+import Navbar from "./components/navbar";
 function App() {
   const [mensaje, setMensaje] = useState("");
-
   useEffect(() => {
-    // Petición al backend Flask
-    fetch("http://127.0.0.1:5000/api/mensaje")
+    fetch("http://localhost:5000/")
       .then((res) => res.json())
-      .then((data) => setMensaje(data.texto))
-      .catch((err) => console.error(err));
+      .then((data) => setMensaje(data.mensaje));
   }, []);
-
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Flask + React funcionando juntos para un sitio</h1>
-      <p>{mensaje}</p>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
-        alt="React Logo"
-        width="120"
-        style={{ marginTop: "20px" }}
-      />
-    
+    <div className="min-h-screen bg-gray-100">
+      <Navbar />
+      <main className="p-8 text-center">
+        <h2 className="text-2xl font-semibold mb-4">React + Flask</h2>
+        <p className="text-gray-700">
+          Mensaje desde el backend: <strong>{mensaje}</strong>
+        </p>
+      </main>
     </div>
   );
 }
-
 export default App;
