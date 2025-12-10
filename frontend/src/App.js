@@ -1,22 +1,32 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
-function App() {
-  const [mensaje, setMensaje] = useState("");
-  useEffect(() => {
-    fetch("http://localhost:5000/")
-      .then((res) => res.json())
-      .then((data) => setMensaje(data.mensaje));
-  }, []);
+
+import Home from "./pages/Home";
+import Nosotros from "./pages/Nosotros";
+import Galeria from "./pages/Galeria";
+import Videos from "./pages/Videos";
+import Formulario from "./pages/Formulario";
+import Contacto from "./pages/Contacto";
+import Login from "./pages/Login";
+
+export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <BrowserRouter>
+
       <Navbar />
-      <main className="p-8 text-center">
-        <h2 className="text-2xl font-semibold mb-4">React + Flask</h2>
-        <p className="text-gray-700">
-          Mensaje desde el backend: <strong>{mensaje}</strong>
-        </p>
-      </main>
-    </div>
-  );
+
+      <div className="container" style={{ padding: "20px" }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/galeria" element={<Galeria />} />
+          <Route path="/videos" element={<Videos />} />
+          <Route path="/formulario" element={<Formulario />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </div>
+
+    </BrowserRouter>
+  );
 }
-export default App;
